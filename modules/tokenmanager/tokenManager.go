@@ -15,18 +15,16 @@ type account struct {
 
 type TokenManager struct {
 	count  int
-	Tokens map[int]account
+	Tokens []account
 }
 
 // METHODS
 func (tm TokenManager) Init() {
 	tm.count = 0
-	tm.readAccounts()
-}
-
-func (tm TokenManager) setTokenInfo(token string, password string, email string) {
-	tm.Tokens[tm.count] = account{token, password, email}
-	tm.count++
+	err := tm.readAccounts()
+	if err != nil {
+		panic("error on read accounts")
+	}
 }
 
 func (tm TokenManager) readAccounts() error {
@@ -39,8 +37,19 @@ func (tm TokenManager) readAccounts() error {
 
 	for _, account := range accounts {
 		accArray := strings.Split(account, ":")
-		tm.SetTokenInfo(accArray[0], accArray[1], accArray[2])
+		tm.setTokenInfo(accArray[0], accArray[1], accArray[2])
 	}
 
 	return err
+}
+
+// GETTERS
+// func (tm TokenManager) getTokensCount() int {
+// 	return len(tm.Tokens)
+// }
+
+// SETTERS
+func (tm TokenManager) setTokenInfo(token string, password string, email string) {
+	newAccount := account{token, password, email}
+	tm.Tokens = append(tm.Tokens, newAccount)
 }
