@@ -2,27 +2,21 @@ package main
 
 import (
 	"fmt"
-	"os"
 
-	"github.com/Raskolnikov404/checker/modules"
+	"github.com/Raskolnikov404/checker/modules/checker"
+	"github.com/Raskolnikov404/checker/modules/tokenmanager"
 )
 
 var (
-	tm modules.TokenManager
+	dTokenManager tokenmanager.TokenManager
+	dChecker      checker.Checker
 )
 
 func main() {
 	fmt.Println("Começando o Checker!")
 
-	tm.Init()
+	dTokenManager = tokenmanager.TokenManager{}
+	dTokenManager.Init()
 
-	accounts, err := modules.ReadLines("files/accounts.txt")
-	if err != nil {
-		fmt.Println("Houve um erro!")
-		os.Exit(1)
-	}
-
-	for _, account := range accounts {
-
-	}
+	dChecker = checker.Checker{}
 }

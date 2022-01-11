@@ -1,4 +1,4 @@
-package modules
+package tokenmanager
 
 import (
 	"errors"
@@ -11,7 +11,7 @@ func ReadLines(path string) ([]string, error) {
 
 	accounts := strings.Split(string(file), "\n")
 	if len(accounts) < 1 {
-		return nil, errors.New("No account detected!")
+		return nil, errors.New("No account detected")
 	}
 
 	return accounts, err
